@@ -13,9 +13,9 @@ export function App() {
         <Routes>
           <Route path="/" element={<Root />}>
             <Route path="/" element={<Home />} />
-            <Route path="/cadastro" element={<Cadastro />} />
-            <Route path="/login" element={<Login />} />
           </Route>
+          <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>
