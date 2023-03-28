@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import googleIcon from "../../assets/icons/google-white.svg";
 import loginImg from "../../assets/images/login.png";
 import { loginEmailSenha, loginGoogle } from "../../firebase/auth";
+import "./Login.css";
 
 export function Login() {
   const {
@@ -21,7 +22,7 @@ export function Login() {
       navigate("/");
     }).catch((e) => {
       if (e.code === "auth/user-not-found") {
-        toast.error(`Esse usuário não existe.`);
+        toast.error(`Este usuário não existe.`);
       }
       else if (e.code === "auth/wrong-password") {
         toast.error(`Senha incorreta.`)
@@ -47,52 +48,54 @@ export function Login() {
   }
 
   return (
-    <Container fluid className="my-5">
-      <p className="text-center">
-        <img src={loginImg} width="256" alt="Logo" />
-      </p>
-      <h4>Bem-vindo(a) de volta!</h4>
-      <p className="text-muted">
-        Não tem conta? <Link to="/cadastro">Cadastre-se</Link>
-      </p>
-      <hr />
-      <Button
-        className="mb-3"
-        variant="danger"
-        onClick={onLoginGoogle}
-      >
-        <img src={googleIcon} width="32" alt="Google icon" /> Entrar com o
-        Google
-      </Button>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Seu email"
-            className={errors.email ? "is-invalid" : ""}
-            {...register("email", { required: "Email é obrigatório" })}
-          />
-          <Form.Text className="invalid-feedback">
-            {errors.email?.message}
-          </Form.Text>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="senha">
-          <Form.Label>Senha</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Sua senha"
-            className={errors.senha ? "is-invalid" : ""}
-            {...register("senha", { required: "Senha é obrigatória" })}
-          />
-          <Form.Text className="invalid-feedback">
-            {errors.senha?.message}
-          </Form.Text>
-        </Form.Group>
-        <Button type="submit" variant="success">
-          Entrar
+    <Container fluid className="container-login-cadastro" >
+      <div className="login-cadastro" >
+        <p className="text-center">
+          <img src={loginImg} width="256" alt="Logo" />
+        </p>
+        <h4>Bem-vindo(a) de volta!</h4>
+        <p className="text-muted">
+          Não tem conta? <Link to="/cadastro">Cadastre-se</Link>
+        </p>
+        <hr />
+        <Button
+          className="mb-3"
+          variant="danger"
+          onClick={onLoginGoogle}
+        >
+          <img src={googleIcon} width="36" alt="Google icon" /> Entrar com o
+          Google
         </Button>
-      </Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              className={errors.email ? "is-invalid" : ""}
+              {...register("email", { required: "Email é obrigatório" })}
+            />
+            <Form.Text className="invalid-feedback">
+              {errors.email?.message}
+            </Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="senha">
+            <Form.Label>Senha</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Senha"
+              className={errors.senha ? "is-invalid" : ""}
+              {...register("senha", { required: "Senha é obrigatória" })}
+            />
+            <Form.Text className="invalid-feedback">
+              {errors.senha?.message}
+            </Form.Text>
+          </Form.Group>
+          <Button type="submit" variant="success">
+            Entrar
+          </Button>
+        </Form>
+      </div>
     </Container>
   );
 }
