@@ -57,7 +57,7 @@ export function Login() {
 
   return (
     <Container fluid className="container-login-cadastro" >
-      <div className="login-cadastro" >
+      <div className="login-cadastro my-3" >
         <p className="text-center">
           <img src={loginImg} width="256" alt="Logo" />
         </p>
