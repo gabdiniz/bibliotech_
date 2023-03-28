@@ -1,11 +1,13 @@
 import { Button, Container, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import logoIcon from "../../assets/icons/livros.png"
 import googleIcon from "../../assets/icons/google-white.svg"
 import { useForm } from "react-hook-form";
 import { cadastrarEmailSenha, loginGoogle } from "../../firebase/auth";
 import { toast } from "react-hot-toast";
 import "../Login/Login.css";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext } from "react";
 
 export function Cadastro() {
 
@@ -40,6 +42,12 @@ export function Cadastro() {
         toast.error(`Um erro aconteceu. Código: ${e.code}`);
       }
     });
+  }
+
+  const usuarioLogado = useContext(AuthContext)
+
+  if (usuarioLogado !== null) {
+    return <Navigate to={"/"} />
   }
 
   return (
