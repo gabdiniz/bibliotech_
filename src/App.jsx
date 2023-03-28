@@ -7,6 +7,7 @@ import { auth } from "./firebase/config";
 import { AdicionarLivro } from "./pages/AdicionarLivro/AdicionarLivro";
 import { Cadastro } from "./pages/Cadastro/Cadastro";
 import { Home } from "./pages/Home/Home";
+import { Livros } from "./pages/Livros/Livros";
 import { Login } from "./pages/Login/Login";
 import { Root } from "./pages/Root/Root";
 
@@ -33,6 +34,7 @@ export function App() {
             <Route path="/" element={<Root />}>
               <Route path="/" element={<Home />} />
               <Route path="/livros/adicionar" element={<AdicionarLivro />} />
+              <Route path="/livros" element={<Livros />} />
             </Route>
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/login" element={<Login />} />
