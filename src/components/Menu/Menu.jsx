@@ -1,9 +1,19 @@
 import "./Menu.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import logoIcon from "./../../assets/icons/livros.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../firebase/auth";
 
 export function Menu() {
+
+  const navigate = useNavigate();
+
+  function onLogout() {
+    logout().then(() => {
+      navigate("/login");
+    })
+  }
+
   return (
     <div className="menu">
       <Navbar bg="success" variant="light" expand="lg">
@@ -19,7 +29,7 @@ export function Menu() {
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/cadastro">Cadastro</Nav.Link>
               <Nav.Link as={Link} to="/login">Login</Nav.Link>
-              <Nav.Link onClick={() => alert("Saindo do sistema")}>
+              <Nav.Link onClick={onLogout}>
                 <i className="bi bi-box-arrow-right"></i>
               </Nav.Link>
             </Nav>
