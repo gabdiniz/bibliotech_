@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router";
 import { addEmprestimo } from "../../firebase/emprestimos";
 import { getLivro, getLivros } from "../../firebase/livros";
 
@@ -9,6 +10,7 @@ export function AdicionarEmprestimo() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [livros, setLivros] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getLivros().then(busca => {
@@ -25,6 +27,7 @@ export function AdicionarEmprestimo() {
       let novoEmprestimo = { ...data, status: "Pedente", livro, dataEmprestimo: new Date() };
       addEmprestimo(novoEmprestimo).then(() => {
         toast.success("Emprestimo adicionado como sucesso!");
+        navigate("/emprestimo")
       })
     })
   }
@@ -64,7 +67,7 @@ export function AdicionarEmprestimo() {
             <Form.Text className="invalid-feedback">{errors.idLivro?.message}</Form.Text>
           </Form.Group>
 
-          <Button type="submit"></Button>
+          <Button type="submit">Fazer emprestimo</Button>
         </Form>
       </Container>
     </div>

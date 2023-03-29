@@ -8,6 +8,7 @@ import { AdicionarEmprestimo } from "./pages/AdicionarEmprestimo/AdicionarEmpres
 import { AdicionarLivro } from "./pages/AdicionarLivro/AdicionarLivro";
 import { Cadastro } from "./pages/Cadastro/Cadastro";
 import { EditarLivro } from "./pages/EditarLivro/EditarLivro";
+import { Emprestimos } from "./pages/Emprestimos/Emprestimos";
 import { Home } from "./pages/Home/Home";
 import { Livros } from "./pages/Livros/Livros";
 import { Login } from "./pages/Login/Login";
@@ -39,6 +40,7 @@ export function App() {
               <Route path="/livros/editar/:id" element={<EditarLivro />} />
               <Route path="/livros" element={<Livros />} />
               <Route path="/emprestimos/adicionar" element={<AdicionarEmprestimo />} />
+              <Route path="/emprestimos" element={<Emprestimos />} />
             </Route>
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/login" element={<Login />} />
