@@ -33,6 +33,7 @@ export function Livros() {
                   <th>Categoria</th>
                   <th>ISBN</th>
                   <th>Imagem</th>
+                  <th>Ações</th>
                 </tr>
               </thead>
               <tbody>
@@ -44,6 +45,10 @@ export function Livros() {
                       <td>{livro.categoria}</td>
                       <td>{livro.isbn}</td>
                       <td><img src={livro.urlCapa} alt={`Capa do livro: ${livro.titulo}`} /></td>
+                      <td className="d-flex flex-column" >
+                        <Button variant="warning" size="sm" as={Link} to={`/livros/editar/${livro.id}`}> <i className="bi bi-pencil-square"></i></Button>
+                        <Button variant="danger" size="sm" className="mt-2 px-1"> <i className="bi bi-trash3"></i></Button>
+                      </td>
                     </tr>
                   )
                 })}
@@ -51,6 +56,6 @@ export function Livros() {
             </Table>
           )}
       </Container>
-    </div>
+    </div >
   )
 }
