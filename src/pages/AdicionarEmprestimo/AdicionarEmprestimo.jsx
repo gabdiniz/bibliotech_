@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Navigate } from "react-router";
 import { addEmprestimo } from "../../firebase/emprestimos";
-import { getLivros } from "../../firebase/livros";
+import { getLivro, getLivros } from "../../firebase/livros";
 
 export function AdicionarEmprestimo() {
 
@@ -17,12 +16,16 @@ export function AdicionarEmprestimo() {
       setLivros(busca);
     });
     console.log(livros)
-  }, [])
+  }, [livros])
   console.log(livros)
 
   function onSubmit(data) {
-    addEmprestimo(data).then(() => {
-      toast.success("Emprestimo adicionado como sucesso!");
+    getLivro(data.idLivro).then((livro) => {
+      delete data.idLivro;
+      let novoEmprestimo = { ...data, status: "Pedente", livro, dataEmprestimo: new Date() };
+      addEmprestimo(novoEmprestimo).then(() => {
+        toast.success("Emprestimo adicionado como sucesso!");
+      })
     })
   }
 
@@ -52,13 +55,13 @@ export function AdicionarEmprestimo() {
 
           <Form.Group className="mb-3" controlId="formTelefone">
             <Form.Label>Livro</Form.Label>
-            <Form.Select className={errors.telefone && "is-invalid"} {...register("telefone", { required: "O campo telefone é obrigatório!" })} >
+            <Form.Select className={errors.idLivro && "is-invalid"} {...register("idLivro", { required: "O campo telefone é obrigatório!" })} >
               <option >Selecione um livro</option>
               {livros.map((livro) => {
                 return <option key={livro.id} value={livro.id}>{livro.titulo}</option>
               })}
             </Form.Select>
-            <Form.Text className="invalid-feedback">{errors.telefone?.message}</Form.Text>
+            <Form.Text className="invalid-feedback">{errors.idLivro?.message}</Form.Text>
           </Form.Group>
 
           <Button type="submit"></Button>
