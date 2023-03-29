@@ -1,4 +1,4 @@
-import { addDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import { addDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { livrosCollection } from "./collections";
 
 export async function addLivro(data) {
@@ -19,3 +19,6 @@ export async function getLivro(id) {
   return { ...document.data(), id: document.id };
 }
 
+export async function updateLivro(id, data) {
+  await updateDoc(doc(livrosCollection, id), data);
+}
