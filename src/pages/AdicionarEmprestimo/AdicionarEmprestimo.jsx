@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { Navigate } from "react-router";
+import { addEmprestimo } from "../../firebase/emprestimos";
 import { getLivros } from "../../firebase/livros";
-
 
 export function AdicionarEmprestimo() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm([]);
-  const [livros, setLivros] = useState([])
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [livros, setLivros] = useState([]);
 
   useEffect(() => {
     getLivros().then(busca => {
@@ -19,7 +21,9 @@ export function AdicionarEmprestimo() {
   console.log(livros)
 
   function onSubmit(data) {
-    //adicionar emprestimo
+    addEmprestimo(data).then(() => {
+      toast.success("Emprestimo adicionado como sucesso!");
+    })
   }
 
   return (
