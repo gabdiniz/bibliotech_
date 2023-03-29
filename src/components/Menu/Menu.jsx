@@ -28,6 +28,7 @@ export function Menu() {
             <Nav className="ms-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/livros">Livros</Nav.Link>
+              <Nav.Link as={Link} to="/emprestimos/adicionar">Novo emprestimo</Nav.Link>
               <Nav.Link onClick={onLogout}>
                 <i className="bi bi-box-arrow-right"></i>
               </Nav.Link>
