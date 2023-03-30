@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Badge, Button, Container, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 import { getEmprestimos } from "../../firebase/emprestimos";
 
@@ -47,8 +48,12 @@ export function Emprestimos() {
                       <td>{emp.email}</td>
                       <td>{emp.telefone}</td>
                       <td>{emp.livro.titulo}</td>
-                      <td><Badge bg={emp.status === "Pendente" ? "warning" : "success"}>{emp.status}</Badge></td>
+                      <td><Badge bg={emp.status === "Pendente" ? "success" : "warning"}>{emp.status}</Badge></td>
                       <td>{data}</td>
+                      <td className="d-flex flex-column">
+                        <Button variant="warning" size="sm" as={Link} to={`/emprestimos/editar/${emp.id}`}><i className="bi bi-pencil-square"></i></Button>
+                        <Button variant="danger" size="sm" className="mt-2 px-1"><i className="bi bi-trash3" ></i></Button>
+                      </td>
                     </tr>
                   )
                 })}

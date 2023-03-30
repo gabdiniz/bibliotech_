@@ -62,7 +62,7 @@ export function Livros() {
                       <td><img src={livro.urlCapa} alt={`Capa do livro: ${livro.titulo}`} /></td>
                       <td className="d-flex flex-column" >
                         <Button variant="warning" size="sm" as={Link} to={`/livros/editar/${livro.id}`}> <i className="bi bi-pencil-square"></i></Button>
-                        <Button variant="danger" size="sm" className="mt-2 px-1"> <i className="bi bi-trash3" onClick={() => { onDeleteLivro(livro.id, livro.titulo) }}></i></Button>
+                        <Button variant="danger" size="sm" className="mt-2 px-1" onClick={() => { onDeleteLivro(livro.id, livro.titulo) }}><i className="bi bi-trash3" ></i></Button>
                       </td>
                     </tr>
                   )
