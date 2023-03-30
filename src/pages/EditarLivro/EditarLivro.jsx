@@ -4,7 +4,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { getLivro, updateLivro } from "../../firebase/livros";
+import { getLivro, updateLivro, uploadCapaLivro } from "../../firebase/livros";
 export function EditarLivro() {
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -12,10 +12,27 @@ export function EditarLivro() {
   const { id } = useParams();
 
   function onSubmit(data) {
-    updateLivro(id, data).then(() => {
-      toast.success("Livro editado com sucesso!");
-      navigate("/livros");
-    });
+    const imagem = data.imagem[0];
+    if (imagem) {
+      const toastId = toast.loading("Upload da imagem...");
+      uploadCapaLivro(imagem).then((url) => {
+        toast.dismiss(toastId)
+        data.urlCapa = url;
+        delete data.imagem;
+        updateLivro(id, data).then(() => {
+          toast.success("Livro editado com sucesso!");
+          navigate("/livros");
+        });
+      })
+    }
+    else {
+      delete data.imagem
+      updateLivro(id, data).then(() => {
+        toast.success("Livro editado com sucesso!");
+        navigate("/livros");
+      });
+    }
+
   }
 
 
@@ -63,12 +80,9 @@ export function EditarLivro() {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formCapa">
-            <Form.Label>Capa</Form.Label>
-            <Form.Control type="url" placeholder="url" className={errors.urlCapa && "is-invalid"}{...register("urlCapa", { required: "Capa é obrigatório!" })} />
-            <Form.Text className="invalid-feedback">
-              {errors.urlCapa?.message}
-            </Form.Text>
+          <Form.Group className="mb-3">
+            <Form.Label>Imagem da capa</Form.Label>
+            <Form.Control type="file" accept=".png,.jpg,.jpeg,.gif" {...register("imagem")} />
           </Form.Group>
 
           <Button type="submit" variant="success">Editar</Button>

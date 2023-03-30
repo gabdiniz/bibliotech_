@@ -52,7 +52,6 @@ export function Emprestimos() {
                       <td>{data}</td>
                       <td className="d-flex flex-column">
                         <Button variant="warning" size="sm" as={Link} to={`/emprestimos/editar/${emp.id}`}><i className="bi bi-pencil-square"></i></Button>
-                        <Button variant="danger" size="sm" className="mt-2 px-1"><i className="bi bi-trash3" ></i></Button>
                       </td>
                     </tr>
                   )
